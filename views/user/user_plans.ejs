@@ -1,0 +1,39 @@
+<% include partials/user_header %>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+              <h1 class="h2"><%= title %></h1>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>Purchase #</th>
+                      <th>Product</th>
+                      <th>Description</th>
+                      <th>Type</th>
+                      <th>Merchant</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      &nbsp;
+                      <% purchases.forEach(function(purchase){ %>
+                        <% if(purchase.user_id._id.equals(user._id)) { %>
+                    <tr>
+                      <td><%= purchase._id %></td>
+                      <td><%= purchase.product_id.name %></td>
+                      <td><%= purchase.product_id.description %></td>
+                      <td><%= purchase.product_id.type %></td>
+                      <td><%= purchase.product_id.merchant.name %></td>
+                      <td><%= purchase.product_id.price %></td>
+                    </tr>
+                    <% } %>
+                  <% }) %>
+                  </tbody>
+                </table>
+              </div>
+
+          </main>
+        </div>
+      </div>
+<% include partials/user_footer %>

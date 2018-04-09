@@ -1,0 +1,57 @@
+<% include partials/header %>
+
+<div class="container">
+    <br>
+    <h1> <%= title %> </h1>
+    <br>
+    <hr>
+    <h2> Your Insurance </h2>
+    <br>
+        <h3><%= product.name %></h3>
+        <h5>Merchant: <%= product.merchant.name %></h5>
+        <p><%= product.type %></p>
+        <p><%= product.description %></p>
+        <p><%= product.price %></p>
+    <br>
+    <hr>
+
+    <h2> Select Payment Method </h2>
+
+      <form method="POST" action="/products/purchase/<%= product._id %>">
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+            OTC / Bank Deposit / Online Banking / Bancnet
+            </label>
+        </div>
+        <div class="form-check disabled">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" disabled>
+            <label class="form-check-label" for="exampleRadios2">
+            Paypal
+            </label>
+        </div>
+            <div class="form-check disabled">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+            <label class="form-check-label" for="exampleRadios3">
+            Credit / Debit / ATM Card
+            </label>
+        </div>
+
+        <div id="form-group">
+            <input class="form-control" type="text" name="user_id" value="<%= user.id %>" hidden>
+        </div>
+    
+        <div id="form-group">
+            <input class="form-control" type="text" name="product_id" value="<%= product.id %>" hidden>
+        </div>
+        <div id="form-group">
+                <input class="form-control" type="number" name="price" value="<%= product.price %>" hidden>
+            </div>
+    
+        <br>
+            <input class="btn btn-success" type="submit" value="Submit Application">
+    </form>
+</div>
+
+<% include partials/footer %>

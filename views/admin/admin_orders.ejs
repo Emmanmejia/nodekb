@@ -1,0 +1,39 @@
+<% include partials/admin_header %>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <h1 class="h2"><%= title %></h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                          <div class="btn-group mr-2">
+                            <button class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button class="btn btn-sm btn-outline-secondary">Export</button>
+                          </div>
+                        </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>Purchase ID</th>
+                        <th>Product</th>
+                        <th>Merchant</th>
+                        <th>Buyer</th>
+                        <!--<th># of Purchases</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% purchases.forEach(function(purchase){ %>
+                      <tr>
+                        <td><%= purchase._id %></td>
+                        <td><%= purchase.product_id.name %></td>
+                        <td><%= purchase.product_id.merchant.name %></td>
+                        <td><%= purchase.user_id.name %></td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+              </main>
+            </div>
+          </div>
+</div>
+
+<% include partials/admin_footer %>

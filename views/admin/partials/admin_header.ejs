@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sendah Insurance</title>
+		<link rel=stylesheet href="/bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel=stylesheet href="/css/admin.css">
+		<link rel="icon" href="/bower_components/bootstrap/assets/img/favicon.png">
+	</head>
+	<body>
+<!-- HEADER -->
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Sendah Insurance</a>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/users/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
+  
+      <div class="container-fluid">
+        <div class="row">
+          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link <% if(page_name == 'dashboard'){ %>active<% } %>" href="/admins/dashboard">
+                    <span data-feather="home"></span>
+                    Dashboard <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link <% if(page_name == 'mailbox'){ %>active<% } %>" href="/admins/mailbox">
+                    <span data-feather="mail"></span>
+                    Mailbox
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link <% if(page_name == 'orders'){ %>active<% } %>" href="/admins/orders">
+                    <span data-feather="shopping-cart"></span>
+                    Orders
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link <% if(page_name == 'products'){ %>active<% } %>" href="/admins/products">
+                    <span data-feather="grid"></span>
+                    Products
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link <% if(page_name == 'users'){ %>active<% } %>" href="/admins/users">
+                    <span data-feather="users"></span>
+                    Users
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+              <div class = "container"> <!-- display errors -->
+                <%- messages('message', locals) %>
+              
+                <% if(typeof errors !== 'undefined'){ %>
+                  <br>
+                  <ul>
+                  <% errors.forEach(function(error){ %>
+                    <div class="alert alert-danger"><%= error.msg %></div>
+                  <% }) %>
+                  </ul>
+                <% } %>
+              </div>

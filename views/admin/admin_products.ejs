@@ -1,0 +1,169 @@
+<% include partials/admin_header %>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <h1 class="h2"><%= title %></h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                          <div class="btn-group mr-2">
+                            <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addProduct">
+                              <span data-feather="plus"></span> Add Product
+                            </button>
+                            <button class="btn btn-sm btn-outline-info"><span data-feather="download"></span> Export</button>
+                          </div>
+                        </div>
+                </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProductTitle" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="addProductTitle">Add Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <form method="POST" action="/admins/products/add" class="needs-validation" novalidate>
+
+                                        <div id="form-group">
+                                            <label>Name</label>
+                                            <input name="name" type="text" class="form-control" id="validationCustom01" placeholder="Name" required>
+                                            <div class="invalid-feedback">Name is required.</div>
+                                        </div>
+            
+                                        <div id="form-group">
+                                          <label>Description</label>
+                                          <textarea class="form-control" name="description" id="validationCustom02" placeholder="Description" required></textarea>
+                                          <div class="invalid-feedback">Name is required.</div>
+                                        </div>
+            
+                                        <div id="form-group">
+                                          <label>Type</label>
+                                          <input class="form-control" type="text" name="type" id="validationCustom03" placeholder="Type" required>
+                                          <div class="invalid-feedback">Name is required.</div>
+                                        </div>
+                                        
+                                      <div id="form-group">
+                                        <input class="form-control" type="text" name="merchant" placeholder="<%= user.name %>" value="<%= user._id %>" hidden>
+                                      </div>
+            
+                                      <div id="form-group">
+                                          <label>Price</label>
+                                          <input class="form-control" type="number" name="price" id="validationCustom04" placeholder="Price" required>
+                                          <div class="invalid-feedback">Price is required.</div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <input class="btn btn-primary" type="submit" value="Submit">
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                <div class="table-responsive">
+                  <table class="table table-hover table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Merchant</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        &nbsp;
+                    <% products.forEach(function(product){ %>
+                      <% if(product.is_approved == true ){ %>
+                      <tr>
+                        <td><%= product._id %></td>
+                        <td><%= product.name %></td>
+                        <td><%= product.description %></td>
+                        <td><%= product.type %></td>
+                        <td><%= product.merchant.name %></td>
+                        <td><%= product.price %></td>
+                        <td>
+                          <a class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Edit" href="/admins/products/edit/<%= product._id %>"><i data-feather="edit-2"></i></a>
+                          <a class="btn btn-sm btn-outline-danger delete-admin-product" data-toggle="tooltip" data-placement="top" title="Delete" href="#" data-id="<%= product._id %>" role="button">╳</i></a>
+                          <!-- 
+                            <a class="btn btn-sm btn-outline-danger delete-product" data-toggle="tooltip" data-placement="top" title="Delete" href="#" data-id="<%= product._id %>"><i data-feather="x" data-id="<%= product._id %>"></i></a></td>
+                          -->
+                      </tr>
+                      <% } %>
+                    <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+
+                <hr>
+
+                <h1 class="h3">Pending Approval</h1>
+                <hr>
+                <div class="table-responsive">
+                  <table class="table table-hover table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Merchant</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        &nbsp;
+                    <% products.forEach(function(product){ %>
+                      <% if(product.is_approved == false ){ %>
+                        <tr>
+                          <td><%= product._id %></td>
+                          <td><%= product.name %></td>
+                          <td><%= product.description %></td>
+                          <td><%= product.type %></td>
+                          <td><%= product.merchant.name %></td>
+                          <td><%= product.price %></td>
+                          <td>
+                            <a class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Edit" href="/admins/products/edit/<%= product._id %>"><i data-feather="edit-2"></i></a>
+                            <a class="btn btn-sm btn-outline-danger delete-admin-product" data-toggle="tooltip" data-placement="top" title="Delete" href="#" data-id="<%= product._id %>" role="button">╳</i></a>
+                            <a class="btn btn-sm btn-outline-success approve-product" data-toggle="tooltip" data-placement="top" title="Approve" href="#" data-id="<%= product._id %>" role="button">✓</i></a>
+                            <!--
+                            <a class="btn btn-sm btn-outline-danger delete-product" data-toggle="tooltip" data-placement="top" title="Delete" href="#" data-id="<%= product._id %>" role="button"><i data-feather="x" data-id="<%= product._id %>"></i></a>
+                            <a class="btn btn-sm btn-outline-success approve-product" data-toggle="tooltip" data-placement="top" title="Approve" href="#" data-id="<%= product._id %>" role="button"><i data-feather="check" data-id="<%= product._id %>"></i></a>
+                            -->
+                          </td>
+                        </tr>
+                        <% } %>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+              </main>
+            </div>
+          </div>
+</div>
+
+<script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>
+
+<% include partials/admin_footer %>

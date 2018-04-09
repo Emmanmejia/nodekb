@@ -1,0 +1,35 @@
+<% include partials/header %>
+
+<div class="container">
+
+<br>
+
+<h1> <%= title %> </h1>
+
+<br>
+
+<div class="container">
+
+  <div class="card-deck mb-3 text-center">
+    <% products.forEach(function(product){ %> 
+      <% if(product.is_approved == true ){ %>
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal"><%= product.name %></h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">₱<%= product.price %> <small class="text-muted">/ mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li><%= product.description %></li>
+              <li><%= product.type %></li>
+              <li><b><%= product.merchant.name %></b></li>
+            </ul>
+            <a  href="/products/<%= product._id %>" class="btn btn-lg btn-block btn-outline-success">Subscribe</a>
+        </div>
+      </div>
+      <% } %>
+    <% }) %>
+    </div>
+</div>
+
+<% include partials/footer %>

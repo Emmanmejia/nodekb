@@ -1,0 +1,46 @@
+<% include partials/header %>
+<div class="container">
+  
+<br>
+
+<h1>  Login </h1>
+    <form method="POST" action="/users/login" class="needs-validation" novalidate>
+      <div id="form-group">
+          <label>Username:</label>
+          <input name="username" type="text" class="form-control" id="validationCustom01" placeholder="Username" required>
+          <div class="invalid-feedback">Username is required.</div>
+      </div>
+
+      <div id="form-group">
+          <label>Password:</label>
+          <input name="password" type="password" class="form-control" id="validationCustom02" placeholder="Password" required>
+          <div class="invalid-feedback">Password is required.</div>
+        </div>
+
+      <br>
+  		<input class="btn btn-primary" type="submit" value="Login">
+  	</form>
+
+</div>
+
+<script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>
+
+<% include partials/footer %>

@@ -1,0 +1,43 @@
+<% include partials/admin_header %>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <h1 class="h2"><%= title %></h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                          <div class="btn-group mr-2">
+                            <button class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button class="btn btn-sm btn-outline-secondary">Export</button>
+                          </div>
+                        </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Merchant</th>
+                        <th>Admin</th>
+                        <!--<th># of Purchases</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% users.forEach(function(user){ %>
+                      <tr>
+                        <td><%= user._id %></td>
+                        <td><%= user.name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.username %></td>
+                        <td><%= user.is_merchant %></td>
+                        <td><%= user.is_admin %></td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+              </main>
+            </div>
+          </div>
+</div>
+
+<% include partials/admin_footer %>
