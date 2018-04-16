@@ -1,17 +1,42 @@
 <% include partials/header %>
-
+      <!-- START THE FEATURETTES -->
 <div class="container">
+    <br>
+    <br>
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading"><span class="text-muted">Sa </span><b><%= product.name %></b><span class="text-muted">, <%= product.description %></span></h2>
+          <br>
+          <h5 class="lead">Merchant: <%= product.merchant.name %></h5>
+          <h5 class="lead">Type: <%= product.type %></h5>
+          <h5>Price: <%= product.price %> Php</h5>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-fluid mx-auto" src="/bower_components/bootstrap/assets/img/500x500.png" alt="Generic placeholder image">
+        </div>
+      </div>
+      <hr>
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">Benefits</h2>
+          <p class="lead description"><%= product.benefits %></p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img class="featurette-image img-fluid mx-auto" src="/bower_components/bootstrap/assets/img/500x500.png" alt="Generic placeholder image">
+        </div>
+      </div>
+      <hr>
+      <div class="row featurette">
+        <div>
+          <h2 class="featurette-heading">Conditions</span></h2>
+          <p class="description"><%= product.conditions %></p>
+        </div>
+      </div>
 
-<br>
+      <!-- /END THE FEATURETTES -->
+      <a  href="/products/purchase/<%= product._id %>" class="btn btn-success">Purchase</a>
+    </div>
 
-<h1><%= product.name %></h1>
-<h5>Merchant: <%= product.merchant.name %></h5>
-<p><%= product.type %></p>
-<p><%= product.description %></p>
-<p><%= product.price %></p>
-
-  <a  href="/products/purchase/<%= product._id %>" class="btn btn-success">Purchase</a>
-
-</div>
+    
 
 <% include partials/footer %>

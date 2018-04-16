@@ -26,7 +26,6 @@ db.on('error', function(err){
 const app = express();
 
 // Bring in models
-let Article = require('./models/article');
 let User = require('./models/user');
 let Purchase = require('./models/purchase');
 
@@ -87,7 +86,7 @@ app.get('*', function(req, res, next){
 // Home Route
 app.get('/', function(req, res){
 	res.render('index.ejs', { //GUEST PATH
-		page_name: 'home'
+		page_name: 'home',
 	});
 });
 
@@ -121,6 +120,12 @@ let merchants = require('./routes/merchants');
 app.use('/merchants', merchants);
 
 //Start Server
+app.listen(3000, function(){
+	console.log('Server started on port 3000...')
+});
+
+/*
 app.listen(process.env.PORT, function(){
 	console.log('Server started on port 3000...')
 });
+*/

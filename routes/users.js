@@ -2,18 +2,20 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitize } = require('express-validator/filter');
 // Bring in models
 let Product = require('../models/product');
 let Purchase = require('../models/purchase');
 let User = require('../models/user');
 //Register form
-router.get('/register', function(req, res){
+router.get('/register', ensureGuest, function(req, res){
   res.render('register.ejs', {
 		page_name: 'register'
 	});
 });
 // Register Process
-router.post('/register', function(req, res){
+router.post('/register', ensureGuest, function(req, res){
   const name = req.body.name;
   const email = req.body.email;
   const username = req.body.username;
@@ -33,7 +35,7 @@ router.post('/register', function(req, res){
     res.render('register.ejs', {
       user: req.user,
       errors:errors,
-      page_name: 'register'
+      page_name: 'register',
     });
   } else {
     let newUser = new User({
@@ -51,8 +53,14 @@ router.post('/register', function(req, res){
         newUser.password = hash;
         newUser.save(function(err){
           if(err){
-            console.log(err);
-            return;
+            if(err.message.indexOf('email_1') > -1) {
+              req.flash('danger', 'Email is already in use.');
+              res.redirect('/users/register');
+            }
+            if(err.message.indexOf('username_1') > -1) {
+              req.flash('danger', 'Username already taken.');
+              res.redirect(req.get('referer'));
+            }
           } else {
             req.flash('success', 'You are now registered and can log in');
             res.redirect('/users/login');
@@ -131,6 +139,42 @@ router.get('/profile', ensureAuthenticated, ensureUser, function(req, res){
   });
 })
 
+//EDIT PROFILE
+router.post('/profile/edit/:id', function(req,res){
+	req.checkBody('name','Name is required').notEmpty();
+  req.checkBody('email','Email is required').notEmpty();
+  req.checkBody('username','Username is required').notEmpty();
+
+	// Get errors
+	let errors = req.validationErrors();
+  
+	if(errors){
+    res.render('user/user_profile.ejs', {
+      title: 'Profile',
+      page_name: 'profile'
+    });
+	} else {
+		let user = {};
+		user.name = req.body.name;
+		user.email = req.body.email;
+    user.username = req.body.username;
+    user.birthdate = req.body.birthdate;
+
+  
+		let query = {_id:req.params.id}
+  
+		User.update(query, user, function(err){
+		  if(err){
+			console.log(err);
+			return;
+		  } else {
+			req.flash('success', 'User Updated');
+			res.redirect('/users/profile');
+		  }
+		});
+	}
+});
+
 //documents
 router.get('/documents', ensureAuthenticated, ensureUser, function(req, res){
   res.render('user/user_documents.ejs', {
@@ -163,6 +207,14 @@ function ensureUser(req, res, next){
 	} else {
 		req.flash('danger', 'Access Denied');
 		res.redirect('/');
+	}
+}
+
+function ensureGuest(req, res, next){
+	if(req.isAuthenticated()){
+		res.redirect('/');
+	} else {
+		return next();
 	}
 }
 

@@ -1,9 +1,62 @@
 <% include partials/user_header %>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-              <h1 class="h2"><%= title %></h1>
-            </div>
-            
-          </main>
-        </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%= title %></h1>
+  </div>
+    <form method="POST" action="/users/profile/edit/<%= user._id %>" class="needs-validation" novalidate>
+      <div id="form-group">
+        <label>Name</label>
+        <input name="name" type="text" class="form-control" id="validationCustom01" value="<%= user.name %>" required>
+        <div class="invalid-feedback">Name is required.</div>
       </div>
+
+      <div id="form-group">
+        <label>Email</label>
+        <input name="email" type="text" class="form-control" id="validationCustom02" value="<%= user.email %>" required>
+        <div class="invalid-feedback">Email is required.</div>
+      </div>
+
+      <div id="form-group">
+        <label>Username</label>
+        <input name="username" type="text" class="form-control" id="validationCustom03" value="<%= user.username %>" required>
+        <div class="invalid-feedback">Username is required.</div>
+      </div>
+
+      <div id="form-group">
+        <label>Birthdate</label>
+        <p><%= user.birthdate %></p>
+        <input name="birthdate" type="date" class="form-control" id="validationCustom04" value="<%= user.birthdate %>" required>
+        <div class="invalid-feedback">Birthdate is required.</div>
+      </div>
+      <br>
+
+      <!-- additional parameters -->
+
+
+    <br>
+        <input class="btn btn-primary" type="submit" value="Save Changes">
+    </form>
+</main>
+</div>
+</div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+    window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
 <% include partials/user_footer %>

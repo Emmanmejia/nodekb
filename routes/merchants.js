@@ -40,9 +40,12 @@ router.get('/profile', ensureAuthenticated, ensureMerchant, function(req, res){
 router.post('/products/add', ensureAuthenticated, ensureMerchant, function(req,res){
 	req.checkBody('name','Name is required').notEmpty();
 	req.checkBody('description','Description is required').notEmpty();
+	req.checkBody('benefits','Benefits are required').notEmpty();
+	req.checkBody('conditions','Conditions are required').notEmpty();
 	req.checkBody('type','Type is required').notEmpty();
 	req.checkBody('merchant','Merchant is required').notEmpty();
 	req.checkBody('price','Price is required').notEmpty();
+	req.checkBody('duration','Duration is required').notEmpty();
 
 	// Get errors
 	let errors = req.validationErrors();
@@ -62,16 +65,21 @@ router.post('/products/add', ensureAuthenticated, ensureMerchant, function(req,r
 		let product = new Product();
 		product.name = req.body.name;
 		product.description = req.body.description;
+		product.benefits = req.body.benefits;
+		product.conditions = req.body.conditions;
 		product.type = req.body.type;
 		product.merchant = req.body.merchant;
 		product.price = req.body.price;
+		product.duration = req.body.duration;
 
 
 		product.save(function(err){
 			if(err){
-				console.log(err);
-				return;
-			} else {
+				if(err.message.indexOf('name_1') > -1) {
+				  req.flash('danger', 'Product Name is already in use.');
+				  res.redirect('/merchants/products');
+				}
+			  } else {
 				req.flash('success','Product Added')
 				res.redirect('/merchants/products');
 			}
@@ -93,9 +101,12 @@ router.get('/products/edit/:id', ensureAuthenticated, ensureMerchant, function(r
 router.post('/products/edit/:id', function(req,res){
 	req.checkBody('name','Name is required').notEmpty();
 	req.checkBody('description','Description is required').notEmpty();
+	req.checkBody('benefits','Benefits are required').notEmpty();
+	req.checkBody('conditions','Conditions are required').notEmpty();
 	req.checkBody('type','Type is required').notEmpty();
 	req.checkBody('merchant','Merchant is required').notEmpty();
 	req.checkBody('price','Price is required').notEmpty();
+	req.checkBody('duration','Duration is required').notEmpty();
   
 	// Get errors
 	let errors = req.validationErrors();
@@ -114,20 +125,25 @@ router.post('/products/edit/:id', function(req,res){
 		let product = {};
 		product.name = req.body.name;
 		product.description = req.body.description;
+		product.benefits = req.body.benefits;
+		product.conditions = req.body.conditions;
 		product.type = req.body.type;
 		product.merchant = req.body.merchant;
 		product.price = req.body.price;
+		product.duration = req.body.duration;
   
 		let query = {_id:req.params.id}
   
 		Product.update(query, product, function(err){
-		  if(err){
-			console.log(err);
-			return;
-		  } else {
-			req.flash('success', 'Product Updated');
-			res.redirect('/merchants/products');
-		  }
+			if(err){
+				if(err.message.indexOf('name_1') > -1) {
+				  req.flash('danger', 'Product Name is already in use.');
+				  res.redirect('/merchants/products');
+				}
+			  } else {
+				req.flash('success','Product Updated')
+				res.redirect('/merchants/products');
+			}
 		});
 	}
 });

@@ -5,9 +5,18 @@ Schema = mongoose.Schema;
 let productSchema = mongoose.Schema({
   name:{
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   description:{
+    type: String,
+    required: true
+  },
+  benefits:{
+    type: String,
+    required: true
+  },
+  conditions:{
     type: String,
     required: true
   },
@@ -23,6 +32,10 @@ let productSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  duration:{
+    type: Number,
+    required: true
+  },
   purchases:[{
     type: Schema.Types.ObjectId,
     ref: 'Purchase'
@@ -35,6 +48,8 @@ let productSchema = mongoose.Schema({
     type: Boolean,
     default: false
   }
+}, {
+  timestamps: true
 });
 
 //merchant

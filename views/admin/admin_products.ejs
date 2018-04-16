@@ -33,13 +33,30 @@
                                         <div id="form-group">
                                           <label>Description</label>
                                           <textarea class="form-control" name="description" id="validationCustom02" placeholder="Description" required></textarea>
-                                          <div class="invalid-feedback">Name is required.</div>
+                                          <div class="invalid-feedback">Description is required.</div>
+                                        </div>
+
+                                        <div id="form-group">
+                                          <label>Benefits</label>
+                                          <textarea class="form-control" name="benefits" id="validationCustom03" placeholder="Benefits" required></textarea>
+                                          <div class="invalid-feedback">Benefits are required.</div>
+                                        </div>
+
+                                        <div id="form-group">
+                                          <label>Conditions</label>
+                                          <textarea class="form-control" name="conditions" id="validationCustom04" placeholder="Conditions" required></textarea>
+                                          <div class="invalid-feedback">Conditions are required.</div>
                                         </div>
             
                                         <div id="form-group">
                                           <label>Type</label>
-                                          <input class="form-control" type="text" name="type" id="validationCustom03" placeholder="Type" required>
-                                          <div class="invalid-feedback">Name is required.</div>
+                                          <select class="form-control" type="text" name="type" id="validationCustom05" placeholder="Type" required>
+                                            <option></option>
+                                            <option>Car Insurance</option>
+                                            <option>Health Insurance</option>
+                                            <option>Accident Insurance</option>
+                                          </select>
+                                          <div class="invalid-feedback">Type is required.</div>
                                         </div>
                                         
                                       <div id="form-group">
@@ -48,9 +65,16 @@
             
                                       <div id="form-group">
                                           <label>Price</label>
-                                          <input class="form-control" type="number" name="price" id="validationCustom04" placeholder="Price" required>
+                                          <input class="form-control" type="number" name="price" id="validationCustom06" placeholder="Price" min=0 required>
                                           <div class="invalid-feedback">Price is required.</div>
                                       </div>
+
+                                      <div id="form-group">
+                                        <label>Duration (in months)</label>
+                                        <input class="form-control" type="number" name="duration" id="validationCustom07" placeholder="Duration" min=1 required>
+                                        <div class="invalid-feedback">Duration is required.</div>
+                                    </div>
+
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -71,6 +95,7 @@
                         <th>Type</th>
                         <th>Merchant</th>
                         <th>Price</th>
+                        <th>Duration</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -85,6 +110,7 @@
                         <td><%= product.type %></td>
                         <td><%= product.merchant.name %></td>
                         <td><%= product.price %></td>
+                        <td><%= product.duration %></td>
                         <td>
                           <a class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Edit" href="/admins/products/edit/<%= product._id %>"><i data-feather="edit-2"></i></a>
                           <a class="btn btn-sm btn-outline-danger delete-admin-product" data-toggle="tooltip" data-placement="top" title="Delete" href="#" data-id="<%= product._id %>" role="button">╳</i></a>
@@ -112,6 +138,7 @@
                         <th>Type</th>
                         <th>Merchant</th>
                         <th>Price</th>
+                        <th>Duration</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -126,6 +153,7 @@
                           <td><%= product.type %></td>
                           <td><%= product.merchant.name %></td>
                           <td><%= product.price %></td>
+                          <td><%= product.duration %></td>
                           <td>
                             <a class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Edit" href="/admins/products/edit/<%= product._id %>"><i data-feather="edit-2"></i></a>
                             <a class="btn btn-sm btn-outline-danger delete-admin-product" data-toggle="tooltip" data-placement="top" title="Delete" href="#" data-id="<%= product._id %>" role="button">╳</i></a>

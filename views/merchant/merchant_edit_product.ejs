@@ -12,13 +12,30 @@
                     <div id="form-group">
                         <label>Description</label>
                         <textarea class="form-control" name="description" id="validationCustom02" required><%= product.description %></textarea>
-                        <div class="invalid-feedback">Name is required.</div>
+                        <div class="invalid-feedback">Description is required.</div>
+                    </div>
+
+                    <div id="form-group">
+                      <label>Benefits</label>
+                      <textarea class="form-control" name="benefits" id="validationCustom03" placeholder="Benefits" required><%= product.benefits %></textarea>
+                      <div class="invalid-feedback">Benefits are required.</div>
+                    </div>
+
+                    <div id="form-group">
+                      <label>Conditions</label>
+                      <textarea class="form-control" name="conditions" id="validationCustom04" placeholder="Conditions" required><%= product.conditions %></textarea>
+                      <div class="invalid-feedback">Conditions are required.</div>
                     </div>
 
                     <div id="form-group">
                         <label>Type</label>
-                        <input class="form-control" type="text" name="type" id="validationCustom03" value="<%= product.type %>" required>
-                        <div class="invalid-feedback">Name is required.</div>
+                        <select class="form-control" type="text" name="type" id="validationCustom05" value="<%= product.type %>" required>
+                          <option><%= product.type %></option>
+                          <option>Car Insurance</option>
+                          <option>Health Insurance</option>
+                          <option>Accident Insurance</option>
+                        </select>
+                        <div class="invalid-feedback">Type is required.</div>
                     </div>
                     
                     <div id="form-group">
@@ -27,9 +44,15 @@
 
                     <div id="form-group">
                         <label>Price</label>
-                        <input class="form-control" type="number" name="price" id="validationCustom04" value="<%= product.price %>"required>
+                        <input class="form-control" type="number" name="price" id="validationCustom06" value="<%= product.price %>" min=0 required>
                         <div class="invalid-feedback">Price is required.</div>
                     </div>
+
+                    <div id="form-group">
+                      <label>Duration (in months)</label>
+                      <input class="form-control" type="number" name="duration" id="validationCustom07" value="<%= product.duration %>" min=1 required>
+                      <div class="invalid-feedback">Duration is required.</div>
+                  </div>
 
                 
                       <br>

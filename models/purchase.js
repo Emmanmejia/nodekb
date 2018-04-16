@@ -15,6 +15,8 @@ let purchaseSchema = mongoose.Schema({
     required: true, 
     ref: 'Product'
   }
+}, {
+  timestamps: true
 });
 
 //status
