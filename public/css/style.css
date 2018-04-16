@@ -19,14 +19,11 @@ body {
 -------------------------------------------------- */
 
 /* Carousel base class */
-.carousel {
-  overflow: hidden;
-}
+
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   bottom: 3rem;
   z-index: 10;
-  color: #00AEEF;
 }
 
 /* Declare heights because of positioning of img element */
@@ -36,12 +33,11 @@ body {
 }
 .carousel-item > img {
   position: absolute;
-  top: 0;
+  top: -15rem;
   left: 0;
-  max-width: 100%;
-  min-height: 100%;
-
-  /*max-height: 32rem;*/
+  min-width: 100%; 
+  height: auto;
+  margin: auto;
 }
 
 /* MARKETING CONTENT
