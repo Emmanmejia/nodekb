@@ -37,26 +37,29 @@
 							<% if(user){ %>
 								<% if(user.is_admin == true){ %>
 									<li class="nav-item">
-										<a class="nav-link" href="/admins/dashboard">Logged in as <b><%= user.name %></b></a>
+										<a class="nav-link">Logged in as <%= user.name %></a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href='/users/logout'>Logout</a>
+										<a class="nav-link" href='/admins/dashboard'><b>View Dashboard</b></a>
 									</li>
 								<% } else if(user.is_merchant == true) { %>
 									<li class="nav-item">
-										<a class="nav-link" href="/merchants/overview">Logged in as <b><%= user.name %></b></a>
+										<a class="nav-link">Logged in as <%= user.name %></a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href='/users/logout'>Logout</a>
+										<a class="nav-link" href='/merchants/overview'><b>View Dashboard</b></a>
 									</li>
 								<% } else { %>
 									<li class="nav-item">
-										<a class="nav-link" href="/users/overview">Logged in as <b><%= user.name %></b></a>
+										<a class="nav-link">Logged in as <%= user.name %></a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href='/users/logout'>Logout</a>
+										<a class="nav-link" href='/users/overview'><b>View Dashboard</b></a>
 									</li>
 								<% } %>
+								<li class="nav-item">
+									<a class="nav-link" href='/users/logout'>Logout</a>
+								</li>
 							<% } else { %>
 								<li class="nav-item">
 										<a class="nav-link" href="#">Welcome <b>Guest</b></a>

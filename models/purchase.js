@@ -14,6 +14,14 @@ let purchaseSchema = mongoose.Schema({
     type: Schema.Types.ObjectId,
     required: true, 
     ref: 'Product'
+  },
+  price:{
+    type: Number,
+    required: true
+  },
+  payment:{
+    type: String,
+    required: true
   }
 }, {
   timestamps: true

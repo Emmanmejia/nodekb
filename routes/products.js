@@ -38,6 +38,7 @@ router.post('/purchase/:id', ensureAuthenticated, ensureUser, function(req,res){
 	req.checkBody('user_id','User is required').notEmpty();
 	req.checkBody('product_id','Product is required').notEmpty();
 	req.checkBody('price','Price is required').notEmpty();
+	req.checkBody('payment','Payment is required').notEmpty();
 
 	// Get errors
 	let errors = req.validationErrors();
@@ -57,6 +58,7 @@ router.post('/purchase/:id', ensureAuthenticated, ensureUser, function(req,res){
 		purchase.user_id = req.body.user_id;
 		purchase.product_id = req.body.product_id;
 		purchase.price = req.body.price;
+		purchase.payment = req.body.payment;
 
 		purchase.save(function(err){
 			if(err){
@@ -81,7 +83,7 @@ router.post('/purchase/:id', ensureAuthenticated, ensureUser, function(req,res){
 				});
 				//Purchase.find({}).populate('user_id').populate({path: 'product_id', populate: {path: 'merchant'}}).exec(function(err, purchases){
 						req.flash('success', 'Successfuly Purchased');
-						res.redirect('https://test.dragonpay.ph/GenPay.aspx?merchantid=SAMPLEGEN&invoiceno='+purchase._id+'&name='+req.user.name+'&email='+req.user.email+'&amount='+req.body.price);
+						res.redirect('/thankyou');
 				//});
 			}
 		});

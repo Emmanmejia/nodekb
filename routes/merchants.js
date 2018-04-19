@@ -32,7 +32,49 @@ router.get('/profile', ensureAuthenticated, ensureMerchant, function(req, res){
       title: 'Profile',
       page_name: 'profile'
     });
-  })
+	})
+	
+//edit profile
+router.post('/profile/edit/:id', ensureAuthenticated, ensureMerchant, function(req,res){
+	req.checkBody('name','Name is required').notEmpty();
+  req.checkBody('email','Email is required').notEmpty();
+  req.checkBody('username','Username is required').notEmpty();
+
+	// Get errors
+	let errors = req.validationErrors();
+  
+	if(errors){
+    res.render('user/user_profile.ejs', {
+      title: 'Profile',
+      page_name: 'profile'
+    });
+	} else {
+		let user = {};
+		user.name = req.body.name;
+		user.email = req.body.email;
+    user.username = req.body.username;
+    user.birthdate = req.body.birthdate;
+
+  
+		let query = {_id:req.params.id}
+  
+		User.update(query, user, function(err){
+      if(err){
+        if(err.message.indexOf('email_1') > -1) {
+          req.flash('danger', 'Email is already in use.');
+          res.redirect('/merchants/profile');
+        }
+        if(err.message.indexOf('username_1') > -1) {
+          req.flash('danger', 'Username already taken.');
+          res.redirect('/merchants/profile');
+        }
+      } else {
+        req.flash('success', 'User Updated');
+        res.redirect('/merchants/profile');
+      }
+		});
+	}
+});
 
 // ADD PRODUCT -- MODALIZED
 

@@ -18,23 +18,28 @@
     <h2> Select Payment Method </h2>
 
       <form method="POST" action="/products/purchase/<%= product._id %>">
-
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="dragonpay" checked>
             <label class="form-check-label" for="exampleRadios1">
-            OTC / Bank Deposit / Online Banking / Bancnet
+            Dragonpay (OTC / Online Banking / Bancnet / etc.)
             </label>
         </div>
-        <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" disabled>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="exampleRadios2" value="paypal">
             <label class="form-check-label" for="exampleRadios2">
             Paypal
             </label>
         </div>
-            <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="exampleRadios3" value="credit">
             <label class="form-check-label" for="exampleRadios3">
             Credit / Debit / ATM Card
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="exampleRadios4" value="bankdeposit">
+            <label class="form-check-label" for="exampleRadios5">
+            Bank Deposit
             </label>
         </div>
 
@@ -50,7 +55,7 @@
             </div>
     
         <br>
-            <input class="btn btn-success" target="_blank" type="submit" value="Submit Application">
+            <input class="btn btn-success dragonpay" type="submit" value="Submit Application" purchase-id="<%= product.id %>" user-name="<%= user.name %>" user-email="<%= user.email %>" product-price="<%= product.price %>">
     </form>
 </div>
 

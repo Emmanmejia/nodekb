@@ -140,7 +140,7 @@ router.get('/profile', ensureAuthenticated, ensureUser, function(req, res){
 })
 
 //EDIT PROFILE
-router.post('/profile/edit/:id', function(req,res){
+router.post('/profile/edit/:id', ensureAuthenticated, ensureUser, function(req,res){
 	req.checkBody('name','Name is required').notEmpty();
   req.checkBody('email','Email is required').notEmpty();
   req.checkBody('username','Username is required').notEmpty();
@@ -164,13 +164,19 @@ router.post('/profile/edit/:id', function(req,res){
 		let query = {_id:req.params.id}
   
 		User.update(query, user, function(err){
-		  if(err){
-			console.log(err);
-			return;
-		  } else {
-			req.flash('success', 'User Updated');
-			res.redirect('/users/profile');
-		  }
+      if(err){
+        if(err.message.indexOf('email_1') > -1) {
+          req.flash('danger', 'Email is already in use.');
+          res.redirect('/users/profile');
+        }
+        if(err.message.indexOf('username_1') > -1) {
+          req.flash('danger', 'Username already taken.');
+          res.redirect('/users/profile');
+        }
+      } else {
+        req.flash('success', 'User Updated');
+        res.redirect('/users/profile');
+      }
 		});
 	}
 });

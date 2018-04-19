@@ -28,6 +28,7 @@ const app = express();
 // Bring in models
 let User = require('./models/user');
 let Purchase = require('./models/purchase');
+let Comment = require('./models/comment');
 
 // Load View Engine
 app.set('view engine', 'ejs');
@@ -105,6 +106,50 @@ app.get('/', function(req, res){
 		});
 	});
 
+	app.get('/faqs',function(req, res){
+		res.render('faqs.ejs', {
+			title: 'FAQs',
+			page_name: 'faqs'
+		});
+	});
+
+	app.get('/thankyou', ensureAuthenticated,function(req, res){
+		res.render('thankyou.ejs', {
+			title: 'Thank You',
+			page_name: 'products'
+		});
+	});
+
+	//post comment
+	app.post('/thankyou', ensureAuthenticated, function(req,res){
+		req.checkBody('comment','Comment is required').notEmpty();
+		// Get errors
+		let errors = req.validationErrors();
+	
+		if(errors){
+				res.render('thankyou.ejs', {
+					title: 'Thank You',
+					page_name: 'products',
+					errors: errors,
+					user: req.user
+				});
+		} else {
+	
+			let newComment = new Comment();
+			newComment.comment = req.body.comment;
+
+			newComment.save(function(err){
+				if(err){
+					console.log(err);
+					return;
+				} else {
+					req.flash('success', 'Comment Submitted');
+					res.redirect('/thankyou');
+				}
+			});
+		}
+	});
+
 //route files
 
 let users = require('./routes/users');
@@ -125,3 +170,13 @@ app.listen(process.env.PORT, function(){
 	console.log('Server started on port 3000...')
 });
 
+
+//Access Controls
+function ensureAuthenticated(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	} else {
+		req.flash('danger', 'Please login');
+		res.redirect('/users/login');
+	}
+}

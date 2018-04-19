@@ -70,6 +70,17 @@ $(document).ready(function(){
   });
 });
 
+$(document).ready(function(){
+  $('.dragonpay').on('click', function(e){
+    $target = $(e.target);
+    const id = $target.attr('purchase-id');
+    const name = $target.attr('user-name');
+    const email = $target.attr('user-email');
+    const price = $target.attr('product-price');
+    window.open("https://test.dragonpay.ph/GenPay.aspx?merchantid=SAMPLEGEN&invoiceno="+id+"&name="+name+"&email="+email+"&amount="+price, "_blank")
+  });
+});
+
 $(function(){
   $('[data-toggle="tooltip"]').tooltip()
 })
