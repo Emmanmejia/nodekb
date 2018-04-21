@@ -81,10 +81,8 @@ router.post('/purchase/:id', ensureAuthenticated, ensureUser, function(req,res){
 					  console.log("Updated User");
 					}
 				});
-				//Purchase.find({}).populate('user_id').populate({path: 'product_id', populate: {path: 'merchant'}}).exec(function(err, purchases){
 						req.flash('success', 'Successfuly Purchased');
 						res.redirect('/thankyou');
-				//});
 			}
 		});
 	}
