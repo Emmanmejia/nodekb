@@ -4,6 +4,7 @@ const router = express.Router();
 let Product = require('../models/product');
 let Purchase = require('../models/purchase');
 let User = require('../models/user');
+let Comment = require('../models/comment');
 
 // dashboard
 router.get('/dashboard', ensureAuthenticated, ensureAdmin, function(req, res){
@@ -43,9 +44,12 @@ router.get('/orders', ensureAuthenticated, ensureAdmin, function(req, res){
 });
 // MAILBOX
 router.get('/mailbox', ensureAuthenticated, ensureAdmin, function(req, res){
-	res.render('admin/admin_mailbox.ejs', {
-		title: 'Mailbox',
-		page_name: 'mailbox'
+	Comment.find({}, function(err, comments){
+		res.render('admin/admin_mailbox.ejs', {
+			comments: comments,
+			title: 'Mailbox',
+			page_name: 'mailbox'
+		});
 	});
 });
 // ADD PRODUCT -- MODAL

@@ -164,6 +164,7 @@ app.use('/admins', admins);
 let merchants = require('./routes/merchants');
 app.use('/merchants', merchants);
 
+
 //Start Server
 
 app.listen(process.env.PORT, function(){

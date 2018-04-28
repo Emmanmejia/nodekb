@@ -9,7 +9,25 @@
                         </div>
                 </div>
                 <div class="table-responsive">
-
+                  <table class="table table-hover table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Comment</th>
+                        <th>Timestamp</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        &nbsp;
+                    <% comments.forEach(function(c){ %>
+                      <tr>
+                        <td><%= c._id %></td>
+                        <td><%= c.comment %></td>
+                        <td><%= c.createdAt %></td>
+                      </tr>
+                    <% }) %>
+                    </tbody>
+                  </table>
                 </div>
               </main>
             </div>
